@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { useI18n } from '../i18n'
 
 export type Block = {
   t: 'col' | 'row' | 'box' | 'text' | 'link' | 'img' | 'icon'
@@ -33,11 +34,13 @@ export type Block = {
 const asList = (c: Block | Block[] | null | undefined): Block[] => (!c ? [] : Array.isArray(c) ? c : [c])
 
 function Text({ n }: { n: Block }) {
+  const { t } = useI18n()
   const Tag = (n.tag ?? 'p') as 'p' | 'h2' | 'h3'
-  return <Tag className={`t${n.s}${n.li ? ' li' : ''}${n.ta ? ' tc' : ''}`} dangerouslySetInnerHTML={{ __html: n.html ?? '' }} />
+  return <Tag className={`t${n.s}${n.li ? ' li' : ''}${n.ta ? ' tc' : ''}`} dangerouslySetInnerHTML={{ __html: t(n.html ?? '') }} />
 }
 
 export default function BlockRenderer({ n, parentRow }: { n: Block; parentRow?: Block }) {
+  const { t } = useI18n()
   const style: CSSProperties = {}
   const cls: string[] = []
   if (n.mt) style.marginTop = n.mt
@@ -49,6 +52,10 @@ export default function BlockRenderer({ n, parentRow }: { n: Block; parentRow?: 
     if (n.t === 'text' && (n.fw ?? 999) < 120) {
       style.flex = 'none'
       style.whiteSpace = 'nowrap'
+    } else if (n.t === 'link') {
+      // links may wrap when a translation is longer than the original text
+      style.flex = '0 1 auto'
+      style.minWidth = 0
     } else if (fixedChild || (n.t === 'box' && parentRow.inline)) {
       style.flex = 'none'
     } else {
@@ -116,7 +123,7 @@ export default function BlockRenderer({ n, parentRow }: { n: Block; parentRow?: 
           href={n.href}
           target="_blank"
           rel="noopener noreferrer"
-          dangerouslySetInnerHTML={{ __html: n.html ?? '' }}
+          dangerouslySetInnerHTML={{ __html: t(n.html ?? '') }}
         />
       )
     case 'img':

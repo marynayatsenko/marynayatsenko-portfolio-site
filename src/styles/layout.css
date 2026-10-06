@@ -26,6 +26,20 @@
 .nav-item.active { background: rgb(35, 35, 36); color: #fff; }
 .nav-item:not(.active):hover { background: rgba(0, 0, 0, 0.05); }
 
+/* ---------- language switch (EN | UA) ---------- */
+.lang { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; height: 48px; padding: 4px; border-radius: 1000px; background: rgba(0, 8, 18, .06); }
+.lang-thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 1000px; background: rgb(35, 35, 36); transition: transform .45s cubic-bezier(.32, .72, 0, 1); }
+.lang-btn {
+  position: relative; z-index: 1; appearance: none; border: 0; background: none; cursor: pointer; height: 100%; min-width: 44px; padding: 0 10px; border-radius: 1000px;
+  font: inherit; font-size: 15px; font-weight: 500; letter-spacing: .2px; color: rgb(23, 23, 23); transition: color .25s;
+}
+.lang-btn.on { color: #fff; }
+.lang-btn:not(.on):hover { color: rgb(0, 8, 18); text-decoration: underline; text-underline-offset: 3px; }
+.lang-btn:focus-visible { outline: 2px solid rgb(56, 46, 255); outline-offset: 1px; }
+.nav-sep { width: 1px; height: 22px; margin: 0 4px 0 2px; background: rgba(0, 8, 18, .14); }
+.lang-float { position: fixed; z-index: 50; top: 20px; right: 24px; border-radius: 1000px; background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); box-shadow: rgba(60, 60, 66, 0.06) 0 2px 24px 0, rgba(66, 67, 69, 0.12) 0 2px 4px 0; padding: 4px; }
+.lang-float .lang { height: 44px; }
+
 /* ---------- home ---------- */
 .home { padding-top: 112px; }
 .hero {
@@ -97,6 +111,12 @@ img.item { object-fit: cover; }
   .c-massage { height: 261px !important; } .c-claim { height: 261px !important; }
 }
 @media (max-width: 809px) {
+  .nav { gap: 2px; }
+  .nav-item { padding: 0 13px; }
+  .nav-sep { margin: 0 2px; }
+  .lang-btn { min-width: 38px; padding: 0 8px; font-size: 14px; }
+  .lang-float { top: 10px; right: 12px; }
+  .lang-float .lang { height: 40px; }
   .page, .home { width: calc(100% - 32px); }
   .bp-t { display: none; }
   .bp-m { display: block; }

@@ -31,6 +31,10 @@ Clicking a screen in `/ui-gallery` opens a full-screen carousel (`src/components
 - the picture flies out of its thumbnail and back; slides ease with an iOS-like curve, zoom/pan glide with inertia
 - the grid uses light 1100px images; the viewer loads the full-resolution ones from `public/assets/img/full/`
 
+## Languages (EN / UA)
+
+The switch sits in the floating nav (home, gallery) and top-right on the case pages. The choice is remembered in `localStorage`; the first visit follows the browser language. English is the source text; Ukrainian lives in `src/i18n/uk-content.json` (page content, keyed by the English string) and `src/i18n/ui.ts` (interface). To add or fix a translation, edit the value next to its English key. Cyrillic is rendered with Manrope (Satoshi has no Cyrillic glyphs).
+
 ## Structure
 
 - `src/pages/Home.tsx` — hero + project cards (decorative icons are positioned from measurements of the original, with hover motion on desktop).

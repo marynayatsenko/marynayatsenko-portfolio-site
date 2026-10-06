@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useI18n } from '../i18n'
 import homeData from '../data/home.json'
 
 type Item = { k: 'svg' | 'img' | 'box'; a?: string | null; i: number; ha?: string; hw?: number; hh?: number }
@@ -59,6 +60,7 @@ function Decor({ id, bp }: { id: string; bp: 'd' | 't' | 'm' }) {
 }
 
 function Card({ m }: { m: CardMeta }) {
+  const { t } = useI18n()
   const href = data[m.id].href
   const external = href.startsWith('http')
   const inner = (
@@ -66,23 +68,23 @@ function Card({ m }: { m: CardMeta }) {
       <Decor id={m.id} bp="d" />
       <Decor id={m.id} bp="t" />
       <Decor id={m.id} bp="m" />
-      <span className="card-label">{m.label}</span>
-      {m.note && <span className="card-note">{m.note}</span>}
+      <span className="card-label">{t(m.label)}</span>
+      {m.note && <span className="card-note">{t(m.note)}</span>}
       <h2 className="card-title">
         {m.titleShort ? (
           <>
             <span className="only-d">
-              {m.title.split('\n').map((l, i) => (
+              {t(m.title).split('\n').map((l, i) => (
                 <span key={i}>
                   {i > 0 && <br />}
                   {l}
                 </span>
               ))}
             </span>
-            <span className="not-d">{m.titleShort}</span>
+            <span className="not-d">{t(m.titleShort)}</span>
           </>
         ) : (
-          m.title
+          t(m.title)
         )}
       </h2>
     </>
@@ -100,20 +102,19 @@ function Card({ m }: { m: CardMeta }) {
 }
 
 export default function Home() {
+  const { t } = useI18n()
   const by = (id: string) => cards.find((c) => c.id === id)!
   return (
     <main className="home">
       <section className="hero">
-        <img className="hero-photo" src="/assets/img/5mrZC0DP6m3Egge8ahXJ5yyzs0.webp" alt="Maryna Yatsenko" />
+        <img className="hero-photo" src="/assets/img/5mrZC0DP6m3Egge8ahXJ5yyzs0.webp" alt={t('Maryna Yatsenko')} />
         <div className="hero-text">
-          <h1>Hi 👋, I'm Maryna</h1>
+          <h1>{t("Hi 👋, I'm Maryna")}</h1>
+          <p>{t('With 2 years of experience in Product UX/UI Design, I create digital products for complex B2B SaaS platforms.')}</p>
           <p>
-            With 2 years of experience in Product UX/UI Design, I create digital products for complex B2B SaaS
-            platforms.
-          </p>
-          <p>
-            I combine UX research, interface design, design systems, and AI-assisted workflows to turn complex
-            business requirements into clear, usable experiences.
+            {t(
+              'I combine UX research, interface design, design systems, and AI-assisted workflows to turn complex business requirements into clear, usable experiences.',
+            )}
           </p>
         </div>
       </section>

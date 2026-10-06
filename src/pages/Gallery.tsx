@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useI18n } from '../i18n'
 import Lightbox, { type LightboxItem } from '../components/Lightbox'
 import PageBody, { type PageData } from '../components/PageBody'
 import pages from '../data/pages.json'
@@ -25,23 +26,24 @@ function collect(img: HTMLImageElement): Open | null {
 }
 
 export default function Gallery() {
+  const { t } = useI18n()
   const [open, setOpen] = useState<Open | null>(null)
 
   useEffect(() => {
-    document.title = 'Gallery — Maryna Yatsenko'
+    document.title = `${t('Gallery')} — ${t('Maryna Yatsenko')}`
     return () => {
-      document.title = 'Maryna Yatsenko'
+      document.title = t('Maryna Yatsenko')
     }
-  }, [])
+  }, [t])
 
   // make the screens keyboard-reachable
   useEffect(() => {
     document.querySelectorAll<HTMLImageElement>('.page.gallery img.pic').forEach((img, i) => {
       img.tabIndex = 0
       img.setAttribute('role', 'button')
-      img.setAttribute('aria-label', `Open image ${(i % 6) + 1} full size`)
+      img.setAttribute('aria-label', `${t('Open image')} ${(i % 6) + 1} ${t('full size')}`)
     })
-  }, [])
+  }, [t])
 
   // the grid picture that is currently "in the viewer" is hidden, so the flight to/from it looks seamless
   useLayoutEffect(() => {

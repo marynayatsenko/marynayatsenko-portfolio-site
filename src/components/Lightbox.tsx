@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useI18n } from '../i18n'
 
 export type LightboxItem = {
   /** full-resolution image shown in the viewer */
@@ -35,6 +36,7 @@ type Props = {
 }
 
 export default function Lightbox({ items, index, onIndexChange, onClose, getOrigin }: Props) {
+  const { t } = useI18n()
   const [view, setView] = useState<View>(FIT)
   const [drag, setDrag] = useState(0)
   const [dismissY, setDismissY] = useState(0)
@@ -459,7 +461,7 @@ export default function Lightbox({ items, index, onIndexChange, onClose, getOrig
       className={'lb' + (closing ? ' closing' : '') + (zoomed ? ' is-zoomed' : '')}
       role="dialog"
       aria-modal="true"
-      aria-label={`${item.title} — image ${index + 1} of ${items.length}`}
+      aria-label={`${item.title} — ${t('image')} ${index + 1} ${t('of')} ${items.length}`}
       tabIndex={-1}
     >
       <div className="lb-bg" style={{ opacity: closing ? undefined : bg }} />
@@ -469,7 +471,7 @@ export default function Lightbox({ items, index, onIndexChange, onClose, getOrig
           {item.sub && <span className="lb-sub">{item.sub}</span>}
           <h2 className="lb-title">{item.title}</h2>
         </div>
-        <button type="button" className="lb-round lb-close" onClick={requestClose} aria-label="Close">
+        <button type="button" className="lb-round lb-close" onClick={requestClose} aria-label={t('Close')}>
           <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11" /></svg>
         </button>
       </header>
@@ -514,7 +516,7 @@ export default function Lightbox({ items, index, onIndexChange, onClose, getOrig
                             imgRefs.current[i] = el
                           }}
                           src={fullReady[it.src] || it.src === it.thumb ? it.src : it.thumb}
-                          alt={`${it.title} — image ${i + 1}`}
+                          alt={`${it.title} — ${t('image')} ${i + 1}`}
                           draggable={false}
                           className={loaded[i] ? 'ready' : ''}
                           style={{ ['--ar' as string]: ratios[i] ?? 1.4 }}
@@ -535,39 +537,39 @@ export default function Lightbox({ items, index, onIndexChange, onClose, getOrig
         </div>
       </div>
 
-      <button type="button" className="lb-round lb-nav lb-prev" onClick={() => go(-1)} disabled={index === 0} aria-label="Previous image">
+      <button type="button" className="lb-round lb-nav lb-prev" onClick={() => go(-1)} disabled={index === 0} aria-label={t('Previous image')}>
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" /></svg>
       </button>
-      <button type="button" className="lb-round lb-nav lb-next" onClick={() => go(1)} disabled={index === items.length - 1} aria-label="Next image">
+      <button type="button" className="lb-round lb-nav lb-next" onClick={() => go(1)} disabled={index === items.length - 1} aria-label={t('Next image')}>
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" /></svg>
       </button>
 
       <div className="lb-dock">
         <p className="lb-tip" aria-hidden="true">
-          <span className="lb-tip-mouse">Scroll to zoom · ← → to browse</span>
-          <span className="lb-tip-touch">Pinch to zoom · swipe to browse</span>
+          <span className="lb-tip-mouse">{t('Scroll to zoom · ← → to browse')}</span>
+          <span className="lb-tip-touch">{t('Pinch to zoom · swipe to browse')}</span>
         </p>
         <div className="lb-pill">
-          <div className="lb-dots" role="group" aria-label={`${item.title}: image ${index + 1} of ${items.length}`}>
+          <div className="lb-dots" role="group" aria-label={`${item.title}: ${t('image')} ${index + 1} ${t('of')} ${items.length}`}>
             {groupItems.map(({ it, i }) => (
               <button
                 type="button"
                 key={it.src + i}
                 className={'lb-dot' + (i === index ? ' on' : '')}
                 onClick={() => onIndexChange(i)}
-                aria-label={`Show image ${i + 1}`}
+                aria-label={`${t('Show image')} ${i + 1}`}
                 aria-current={i === index}
               />
             ))}
           </div>
           <span className="lb-sep" aria-hidden="true" />
-          <button type="button" className="lb-tool" onClick={() => zoomAt(tgtRef.current.s / STEP, 0, 0)} disabled={!zoomed} aria-label="Zoom out">
+          <button type="button" className="lb-tool" onClick={() => zoomAt(tgtRef.current.s / STEP, 0, 0)} disabled={!zoomed} aria-label={t('Zoom out')}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 12h12" /></svg>
           </button>
-          <button type="button" className="lb-tool" onClick={() => zoomAt(tgtRef.current.s * STEP, 0, 0)} disabled={view.s >= MAX - 0.01} aria-label="Zoom in">
+          <button type="button" className="lb-tool" onClick={() => zoomAt(tgtRef.current.s * STEP, 0, 0)} disabled={view.s >= MAX - 0.01} aria-label={t('Zoom in')}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 12h12M12 6v12" /></svg>
           </button>
-          <button type="button" className={'lb-pct' + (zoomed ? ' on' : '')} onClick={() => animateTo(FIT)} tabIndex={zoomed ? 0 : -1} aria-label="Reset zoom">
+          <button type="button" className={'lb-pct' + (zoomed ? ' on' : '')} onClick={() => animateTo(FIT)} tabIndex={zoomed ? 0 : -1} aria-label={t('Reset zoom')}>
             {pct}%
           </button>
         </div>

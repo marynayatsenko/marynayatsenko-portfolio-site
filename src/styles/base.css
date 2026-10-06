@@ -9,7 +9,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: #fff;
-  font-family: "Satoshi", "Satoshi Placeholder", sans-serif;
+  font-family: "Satoshi", "Manrope", "Satoshi Placeholder", sans-serif;
   font-feature-settings: 'blwf' on, 'cv03' on, 'cv04' on, 'cv09' on, 'cv11' on;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

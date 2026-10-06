@@ -1,11 +1,13 @@
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { useI18n } from '../i18n'
 import BlockRenderer, { type Block } from './BlockRenderer'
 
 export type PageTree = { tree: Block; top: number; gap: number; bot: number; back: boolean }
 export type PageData = { d: PageTree; m: PageTree }
 
 function BackLink({ gap }: { gap: number }) {
+  const { t } = useI18n()
   return (
     <Link to="/" className="back" style={{ marginBottom: gap }}>
       <svg width="12" height="12" viewBox="0 0 12 11.667" aria-hidden="true">
@@ -14,7 +16,7 @@ function BackLink({ gap }: { gap: number }) {
           fill="currentColor"
         />
       </svg>
-      Back
+      {t('Back')}
     </Link>
   )
 }
