@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import homeData from '../data/home.json'
 
-type Item = { k: 'svg' | 'use' | 'img' | 'box'; a?: string; i: number; bg?: string; br?: string }
+type Item = { k: 'svg' | 'img' | 'box'; a?: string | null; i: number; ha?: string; hw?: number; hh?: number }
 type Bp = { items: Item[] }
 type CardData = { href: string; bps: Record<'d' | 't' | 'm', Bp> }
 
@@ -45,12 +45,14 @@ function Decor({ id, bp }: { id: string; bp: 'd' | 't' | 'm' }) {
     <div className={`bp bp-${bp}`} aria-hidden="true">
       {items.map((it) => {
         const cls = `item i-${bp}-${it.i}`
-        if (it.k === 'box') return <div key={it.i} className={cls} style={{ background: it.bg, borderRadius: it.br }} />
-        if (it.k === 'img') {
-          const stem = (it.a ?? '').split('/').pop()!.replace(/\.[a-z]+$/i, '')
-          return <img key={it.i} className={cls} src={`/assets/img/${stem}.webp`} alt="" decoding="async" />
-        }
-        return <div key={it.i} className={`${cls} svgbg`} style={{ backgroundImage: `url(/assets/svg/${it.a}.svg)` }} />
+        if (it.k === 'box') return <div key={it.i} className={cls} />
+        if (it.k === 'img') return <img key={it.i} className={cls} src={`/assets/img/${it.a}.webp`} alt="" decoding="async" />
+        return (
+          <span key={it.i}>
+            <div className={`${cls} svgbg`} style={{ backgroundImage: `url(/assets/svg/${it.a}.svg)` }} />
+            {it.ha && <div className={`item svgbg i-${bp}-${it.i}b`} style={{ backgroundImage: `url(/assets/svg/${it.ha}.svg)` }} />}
+          </span>
+        )
       })}
     </div>
   )

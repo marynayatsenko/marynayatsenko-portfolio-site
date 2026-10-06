@@ -60,12 +60,12 @@
 .c-finance .card-title { width: 347px; max-width: calc(100% - 64px); }
 @media (min-width: 1200px) { .c-finance .card-title { width: 429px; } }
 .bp { position: absolute; inset: 0; display: none; }
-.item { position: absolute; }
+.item { position: absolute; transform-origin: 50% 50%; backface-visibility: hidden; }
 .svgbg { background-repeat: no-repeat; background-size: 100% 100%; }
-img.item { object-fit: fill; }
+img.item { object-fit: cover; }
 @media (min-width: 1200px) {
   .bp-d { display: block; }
-  .item { transition: left .5s cubic-bezier(.44,0,.56,1), top .5s cubic-bezier(.44,0,.56,1), right .5s cubic-bezier(.44,0,.56,1), width .5s cubic-bezier(.44,0,.56,1), height .5s cubic-bezier(.44,0,.56,1), transform .5s cubic-bezier(.44,0,.56,1); }
+  .item { will-change: transform, opacity; transition: transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s ease-out; }
   .not-d { display: none; }
 }
 @media (max-width: 1199px) {
