@@ -23,7 +23,9 @@ function BackLink({ gap }: { gap: number }) {
  * Case pages and the gallery are generated from two measured layouts of the
  * original site (desktop and mobile). Both are rendered; CSS shows the right one.
  */
-export default function PageBody({ data, className }: { data: PageData; className: string }) {
+type MainProps = Pick<React.HTMLAttributes<HTMLElement>, 'onClick' | 'onKeyDown'>
+
+export default function PageBody({ data, className, ...handlers }: { data: PageData; className: string } & MainProps) {
   const render = (v: PageTree, cls: string) => (
     <div className={cls} style={{ paddingTop: v.top, paddingBottom: v.bot } as CSSProperties}>
       {v.back && <BackLink gap={v.gap} />}
@@ -31,7 +33,7 @@ export default function PageBody({ data, className }: { data: PageData; classNam
     </div>
   )
   return (
-    <main className={`page ${className}`}>
+    <main className={`page ${className}`} {...handlers}>
       {render(data.d, 'view view-d')}
       {render(data.m, 'view view-m')}
     </main>

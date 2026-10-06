@@ -22,6 +22,14 @@ npm run preview  # serve the production build
 
 The Vercel *production branch* is configured under Settings → Git (merge to it to publish).
 
+## Gallery viewer
+
+Clicking a screen in `/ui-gallery` opens a full-screen carousel (`src/components/Lightbox.tsx`):
+
+- `←` `→` / `PageUp` `PageDown` / `Home` `End` or swipe to browse, `Esc`, a tap on the backdrop or a swipe down to close
+- `+` `−` (hold to keep zooming), `0` fit, `1` actual size; mouse wheel / trackpad / pinch to zoom, double-click or double-tap to toggle, drag to move
+- the grid uses light 1100px images; the viewer loads the full-resolution ones from `public/assets/img/full/`
+
 ## Structure
 
 - `src/pages/Home.tsx` — hero + project cards (decorative icons are positioned from measurements of the original, with hover motion on desktop).

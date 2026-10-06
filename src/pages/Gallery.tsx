@@ -1,13 +1,74 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import Lightbox, { type LightboxItem } from '../components/Lightbox'
 import PageBody, { type PageData } from '../components/PageBody'
 import pages from '../data/pages.json'
 
+type Open = { items: LightboxItem[]; index: number }
+
+/** Collect every screen of the visible layout together with the project it belongs to. */
+function collect(img: HTMLImageElement): Open | null {
+  const view = img.closest('.view')
+  if (!view) return null
+  const all = Array.from(view.querySelectorAll<HTMLImageElement>('img.pic'))
+  const groups: Element[] = []
+  const items = all.map((el) => {
+    const box = el.closest('.box') ?? view
+    let g = groups.indexOf(box)
+    if (g < 0) g = groups.push(box) - 1
+    const heads = box.querySelectorAll('h2')
+    const thumb = el.currentSrc || el.src
+    return { thumb, src: thumb.replace('/assets/img/', '/assets/img/full/'), group: g, sub: heads[0]?.textContent?.trim() || undefined, title: heads[1]?.textContent?.trim() || 'Gallery' }
+  })
+  const index = all.indexOf(img)
+  return index < 0 ? null : { items, index }
+}
+
 export default function Gallery() {
+  const [open, setOpen] = useState<Open | null>(null)
+
   useEffect(() => {
     document.title = 'Gallery — Maryna Yatsenko'
     return () => {
       document.title = 'Maryna Yatsenko'
     }
   }, [])
-  return <PageBody data={(pages as unknown as Record<string, PageData>)['ui-gallery']} className="gallery" />
+
+  // make the screens keyboard-reachable
+  useEffect(() => {
+    document.querySelectorAll<HTMLImageElement>('.page.gallery img.pic').forEach((img, i) => {
+      img.tabIndex = 0
+      img.setAttribute('role', 'button')
+      img.setAttribute('aria-label', `Open image ${(i % 6) + 1} full size`)
+    })
+  }, [])
+
+  const openFrom = useCallback((target: EventTarget | null) => {
+    if (!(target instanceof HTMLImageElement) || !target.classList.contains('pic')) return false
+    const o = collect(target)
+    if (o) setOpen(o)
+    return !!o
+  }, [])
+
+  return (
+    <>
+      <PageBody
+        data={(pages as unknown as Record<string, PageData>)['ui-gallery']}
+        className="gallery"
+        onClick={(e) => {
+          openFrom(e.target)
+        }}
+        onKeyDown={(e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && openFrom(e.target)) e.preventDefault()
+        }}
+      />
+      {open && (
+        <Lightbox
+          items={open.items}
+          index={open.index}
+          onIndexChange={(i) => setOpen((o) => (o ? { ...o, index: i } : o))}
+          onClose={() => setOpen(null)}
+        />
+      )}
+    </>
+  )
 }
