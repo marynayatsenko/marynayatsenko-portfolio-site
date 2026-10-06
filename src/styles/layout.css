@@ -30,7 +30,7 @@
 .home { padding-top: 112px; }
 .hero {
   position: relative; display: flex; align-items: center; height: 384px; border-radius: 16px; background: rgb(237, 237, 245);
-  padding: 0 80px 0 446px; overflow: hidden;
+  padding: 0 80px 0 446px; overflow: hidden; overflow: clip; isolation: isolate; clip-path: inset(0 round 16px);
 }
 .hero-photo { position: absolute; left: 79px; top: 24px; width: 301px; height: 360px; object-fit: cover; object-position: top; }
 .hero-text h1 { font-size: 40px; font-weight: 500; line-height: 48px; letter-spacing: -0.8px; margin-bottom: 24px; }
@@ -44,7 +44,12 @@
 .col-right .card { height: 261px; }
 .col-right .c-sports, .col-right .c-finance { grid-column: 1 / -1; }
 
-.card { position: relative; display: block; overflow: hidden; border-radius: 16px; color: rgb(0, 25, 55); }
+.card {
+  position: relative; display: block; overflow: hidden; overflow: clip; border-radius: 16px; color: rgb(0, 25, 55);
+  /* keep the rounded corners crisp even while decor layers animate (Safari/iOS ignore overflow clipping of composited children) */
+  isolation: isolate; clip-path: inset(0 round 16px); transform: translateZ(0); -webkit-tap-highlight-color: transparent; outline: none;
+}
+.card:focus-visible { box-shadow: inset 0 0 0 3px rgb(56, 46, 255); }
 .card-label {
   position: absolute; z-index: 2; top: 32px; left: 32px; right: 32px; font-size: 20px; font-weight: 500; line-height: 24px;
   letter-spacing: 0.2px; color: rgb(54, 76, 202);
