@@ -14,34 +14,34 @@
 /* ---------- nav ---------- */
 .nav-wrap { position: fixed; z-index: 50; left: 0; right: 0; top: 24px; display: flex; justify-content: center; pointer-events: none; }
 .nav {
-  pointer-events: auto; display: flex; align-items: center; gap: 6px; padding: 4px; border-radius: 50px;
+  pointer-events: auto; display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 50px;
   background: rgba(255, 255, 255, 0.2); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
   box-shadow: rgba(60, 60, 66, 0.06) 0 2px 24px 0, rgba(66, 67, 69, 0.12) 0 2px 4px 0;
 }
 .nav-item {
-  display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px; border-radius: 1000px;
-  font-size: 18px; font-weight: 500; line-height: 23.4px; letter-spacing: -0.72px; color: rgb(23, 23, 23);
+  display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border-radius: 1000px;
+  font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: -0.45px; color: rgb(23, 23, 23);
   transition: background-color .2s, color .2s;
 }
 .nav-item.active { background: rgb(214, 224, 255); color: rgb(0, 25, 55); }
 .nav-item:not(.active):hover { background: rgba(0, 0, 0, 0.05); }
 
 /* ---------- language selector: a pill built exactly like the nav buttons, plus a rounded dropdown ---------- */
-.lang { position: relative; display: flex; align-items: center; height: 48px; }
+.lang { position: relative; display: flex; align-items: center; height: 38px; }
 .lang-trigger {
-  appearance: none; border: 0; background: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; height: 48px; padding: 0 16px 0 18px; border-radius: 1000px;
-  font: inherit; font-size: 18px; font-weight: 500; line-height: 23.4px; letter-spacing: -0.72px; color: rgb(23, 23, 23); transition: background-color .2s;
+  appearance: none; border: 0; background: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 12px 0 14px; border-radius: 1000px;
+  font: inherit; font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: -0.45px; color: rgb(23, 23, 23); transition: background-color .2s;
 }
 .lang-trigger:hover:not(.on), .lang.is-open .lang-trigger { background: rgba(0, 0, 0, .05); }
 .lang-trigger:focus-visible { outline: 2px solid rgb(56, 46, 255); outline-offset: -2px; }
 .lang-trigger svg { flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .lang-globe { opacity: .85; }
-.lang-code { min-width: 27px; text-align: center; }
+.lang-code { min-width: 23px; text-align: center; }
 .lang-chev { opacity: .55; transition: transform .35s cubic-bezier(.32, .72, 0, 1); }
 .lang.is-open .lang-chev { transform: rotate(180deg); }
 
 .lang-menu {
-  position: absolute; z-index: 60; top: calc(100% + 14px); right: -4px; min-width: 232px; padding: 6px; border-radius: 32px; background: rgba(255, 255, 255, .94);
+  position: absolute; z-index: 60; top: calc(100% + 12px); right: -4px; min-width: 196px; padding: 5px; border-radius: 24px; background: rgba(255, 255, 255, .94);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   box-shadow: rgba(60, 60, 66, .06) 0 2px 24px 0, rgba(66, 67, 69, .14) 0 2px 6px 0; transform-origin: 90% 0; opacity: 0; visibility: hidden; pointer-events: none;
   transform: translateY(-8px) scale(.92); transition: opacity .16s ease, transform .24s cubic-bezier(.32, .72, 0, 1), visibility 0s linear .24s;
@@ -49,19 +49,19 @@
 .lang-menu.up { top: auto; bottom: calc(100% + 14px); transform-origin: 90% 100%; transform: translateY(8px) scale(.92); }
 .lang-menu.open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition: opacity .18s ease, transform .38s cubic-bezier(.32, .72, 0, 1), visibility 0s; }
 .lang-opt {
-  appearance: none; border: 0; background: none; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px; height: 48px; padding: 0 20px;
-  border-radius: 1000px; font: inherit; font-size: 18px; font-weight: 500; line-height: 23.4px; letter-spacing: -0.72px; text-align: left; color: rgb(23, 23, 23); transition: background-color .2s, color .2s;
+  appearance: none; border: 0; background: none; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 38px; padding: 0 16px;
+  border-radius: 1000px; font: inherit; font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: -0.45px; text-align: left; color: rgb(23, 23, 23); transition: background-color .2s, color .2s;
 }
-.lang-opt + .lang-opt { margin-top: 4px; }
+.lang-opt + .lang-opt { margin-top: 3px; }
 .lang-opt:hover:not(.sel), .lang-opt:focus-visible:not(.sel) { background: rgba(0, 0, 0, .05); outline: none; }
 .lang-opt.sel { background: rgb(214, 224, 255); color: rgb(0, 25, 55); cursor: default; }
 .lang-opt.sel:focus-visible { outline: 2px solid rgb(56, 46, 255); outline-offset: 2px; }
-.lang-opt-code { font-size: 14px; font-weight: 500; letter-spacing: .5px; opacity: .5; }
+.lang-opt-code { font-size: 12px; font-weight: 500; letter-spacing: .5px; opacity: .5; }
 .lang-opt.sel .lang-opt-code { opacity: .65; }
 .nl { display: inline-grid; justify-items: center; }
 .nl > span { grid-area: 1 / 1; visibility: hidden; white-space: nowrap; }
 .nl > span.on { visibility: visible; }
-.nav-sep { width: 1px; height: 22px; margin: 0 2px 0 0; background: rgba(0, 8, 18, .12); }
+.nav-sep { width: 1px; height: 18px; margin: 0 2px 0 0; background: rgba(0, 8, 18, .12); }
 .lang-float { position: fixed; z-index: 50; top: 18px; right: 24px; padding: 4px; border-radius: 1000px; background: rgba(255, 255, 255, .2); -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); box-shadow: rgba(60, 60, 66, 0.06) 0 2px 24px 0, rgba(66, 67, 69, 0.12) 0 2px 4px 0; }
 .lang-float .lang-menu { right: -4px; }
 
@@ -157,7 +157,7 @@ img.item { object-fit: cover; }
   .nav { gap: 2px; }
   .nav-item { padding: 0 12px; }
   .nav-sep { margin: 0; }
-  .lang-trigger { padding: 0 12px 0 13px; gap: 5px; }
+  .lang-trigger { padding: 0 10px 0 12px; gap: 4px; }
   .lang-globe { display: none; }
   .lang-float { top: 10px; right: 12px; }
   .lang-menu { right: -8px; min-width: 216px; }
