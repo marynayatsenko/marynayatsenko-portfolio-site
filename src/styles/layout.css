@@ -37,6 +37,9 @@
 .lang-btn:hover { color: rgba(0, 8, 18, .75); }
 .lang-btn.on { color: rgb(0, 8, 18); cursor: default; }
 .lang-btn:focus-visible { outline: 2px solid rgb(56, 46, 255); outline-offset: 0; }
+.nl { display: inline-grid; justify-items: center; }
+.nl > span { grid-area: 1 / 1; visibility: hidden; white-space: nowrap; }
+.nl > span.on { visibility: visible; }
 .nav-sep { width: 1px; height: 18px; margin: 0 6px 0 4px; background: rgba(0, 8, 18, .13); }
 .lang-float {
   position: fixed; z-index: 50; top: 18px; right: 24px; padding: 0 8px; border-radius: 1000px;

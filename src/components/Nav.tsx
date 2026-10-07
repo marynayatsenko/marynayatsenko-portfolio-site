@@ -1,8 +1,24 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { useI18n } from '../i18n'
+import { uiUk } from '../i18n/ui'
 import LangSwitch from './LangSwitch'
 
 const CV_URL = 'https://flowcv.com/resume/8ccugdb2au'
+
+/** Renders both language versions in one grid cell, so the button keeps the width of the longer word. */
+function Label({ en }: { en: string }) {
+  const { lang } = useI18n()
+  return (
+    <span className="nl">
+      <span className={lang === 'en' ? 'on' : ''} aria-hidden={lang !== 'en'}>
+        {en}
+      </span>
+      <span className={lang === 'uk' ? 'on' : ''} lang="uk" aria-hidden={lang !== 'uk'}>
+        {uiUk[en] ?? en}
+      </span>
+    </span>
+  )
+}
 
 export default function Nav() {
   const { pathname } = useLocation()
@@ -19,10 +35,10 @@ export default function Nav() {
     <header className={'nav-wrap' + (pathname === '/ui-gallery' ? ' on-gallery' : '')}>
       <nav className="nav" aria-label={t('Main')}>
         <NavLink to="/" end className={({ isActive }) => 'nav-item' + (isActive ? ' active' : '')}>
-          {t('Home')}
+          <Label en="Home" />
         </NavLink>
         <NavLink to="/ui-gallery" className={({ isActive }) => 'nav-item' + (isActive ? ' active' : '')}>
-          {t('Gallery')}
+          <Label en="Gallery" />
         </NavLink>
         <a className="nav-item nav-cv" href={CV_URL} target="_blank" rel="noopener noreferrer">
           {t('CV')}
