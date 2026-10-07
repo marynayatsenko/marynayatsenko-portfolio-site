@@ -89,12 +89,12 @@ export default function LangSwitch({ className = '' }: { className?: string }) {
           }
         }}
       >
-        <svg className="lang-globe" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        <svg className="lang-globe" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
           <circle cx="12" cy="12" r="9" />
           <path d="M3 12h18M12 3c2.6 2.4 3.9 5.4 3.9 9S14.6 18.6 12 21c-2.6-2.4-3.9-5.4-3.9-9S9.4 5.4 12 3z" />
         </svg>
         <span className="lang-code">{current.code}</span>
-        <svg className="lang-chev" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+        <svg className="lang-chev" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
           <path d="M6 9.5l6 6 6-6" />
         </svg>
       </button>
@@ -115,11 +115,8 @@ export default function LangSwitch({ className = '' }: { className?: string }) {
             onClick={() => choose(o.id)}
             onMouseEnter={() => setActive(i)}
           >
-            <span className="lang-opt-code">{o.code}</span>
             <span className="lang-opt-name">{o.name}</span>
-            <svg className="lang-check" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path d="M5 12.5l4.5 4.5L19 7.5" />
-            </svg>
+            <span className="lang-opt-code">{o.code}</span>
           </button>
         ))}
       </div>
