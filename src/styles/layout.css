@@ -23,7 +23,7 @@
   font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: -0.45px; color: rgb(23, 23, 23);
   transition: background-color .2s, color .2s;
 }
-.nav-item.active { background: rgb(214, 224, 255); color: rgb(0, 25, 55); }
+.nav-item.active { background: rgb(35, 35, 36); color: #fff; }
 .nav-item:not(.active):hover { background: rgba(0, 0, 0, 0.05); }
 
 /* ---------- language selector: a pill built exactly like the nav buttons, plus a rounded dropdown ---------- */
