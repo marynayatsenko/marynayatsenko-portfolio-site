@@ -35,7 +35,7 @@ Clicking a screen in `/ui-gallery` opens a full-screen carousel (`src/components
 
 ## Languages (EN / UA)
 
-The switch sits in the floating nav (home, gallery) and top-right on the case pages. The choice is remembered in `localStorage`; the first visit follows the browser language. English is the source text; Ukrainian lives in `src/i18n/uk-content.json` (page content, keyed by the English string) and `src/i18n/ui.ts` (interface). To add or fix a translation, edit the value next to its English key. Cyrillic is rendered with Manrope (Satoshi has no Cyrillic glyphs).
+The selector (globe · code · chevron → dropdown card with a check mark) sits in the floating nav (home, gallery) and top-right on the case pages; it opens upwards when the nav is at the bottom of the screen and is keyboard accessible (↑ ↓ Enter Esc). The choice is remembered in `localStorage`; the first visit follows the browser language. English is the source text; Ukrainian lives in `src/i18n/uk-content.json` (page content, keyed by the English string) and `src/i18n/ui.ts` (interface). To add or fix a translation, edit the value next to its English key. Cyrillic is rendered with Manrope (Satoshi has no Cyrillic glyphs).
 
 ## Structure
 
