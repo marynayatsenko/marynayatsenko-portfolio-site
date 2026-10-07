@@ -44,8 +44,8 @@ function restoreAnchor(a: ReturnType<typeof pickAnchor>) {
   if (Math.abs(d) > 1) window.scrollBy(0, d)
 }
 
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (en: string) => string }
-const I18nContext = createContext<Ctx>({ lang: 'en', setLang: () => {}, t: (s) => s })
+type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (en: string) => string; both: (en: string) => [string, string] }
+const I18nContext = createContext<Ctx>({ lang: 'en', setLang: () => {}, t: (s) => s, both: (s) => [s, s] })
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(initialLang)
@@ -97,7 +97,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const t = useCallback((en: string) => (lang === 'uk' ? dict[en] ?? en : en), [lang])
-  const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t])
+  const both = useCallback((en: string): [string, string] => [en, dict[en] ?? en], [])
+  const value = useMemo(() => ({ lang, setLang, t, both }), [lang, setLang, t, both])
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>
 }
 

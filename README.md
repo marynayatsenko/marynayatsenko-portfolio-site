@@ -35,7 +35,7 @@ Clicking a screen in `/ui-gallery` opens a full-screen carousel (`src/components
 
 ## Languages (EN / UA)
 
-The selector (globe · code · chevron → dropdown card with a check mark) sits in the floating nav (home, gallery) and top-right on the case pages; it opens upwards when the nav is at the bottom of the screen and is keyboard accessible (↑ ↓ Enter Esc). The choice is remembered in `localStorage`; the first visit follows the browser language. English is the source text; Ukrainian lives in `src/i18n/uk-content.json` (page content, keyed by the English string) and `src/i18n/ui.ts` (interface). To add or fix a translation, edit the value next to its English key. Cyrillic is rendered with Manrope (Satoshi has no Cyrillic glyphs).
+The selector (globe · code · chevron → dropdown card with a check mark) sits in the floating nav (home, gallery) and top-right on the case pages; it opens upwards when the nav is at the bottom of the screen and is keyboard accessible (↑ ↓ Enter Esc). The choice is remembered in `localStorage`; the first visit follows the browser language. English is the source text; Ukrainian lives in `src/i18n/uk-content.json` (page content, keyed by the English string) and `src/i18n/ui.ts` (interface). Every translated text renders both versions in one grid cell (`components/Bi.tsx`) and shows only the active one, so the layout is pixel-identical in EN and UA and nothing moves when the language is switched (English pages therefore keep a little spare room under paragraphs that are longer in Ukrainian). To add or fix a translation, edit the value next to its English key. Cyrillic is rendered with Manrope (Satoshi has no Cyrillic glyphs).
 
 ## Structure
 

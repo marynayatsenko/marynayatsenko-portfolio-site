@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { useI18n } from '../i18n'
+import Bi from './Bi'
 
 export type Block = {
   t: 'col' | 'row' | 'box' | 'text' | 'link' | 'img' | 'icon'
@@ -34,13 +34,15 @@ export type Block = {
 const asList = (c: Block | Block[] | null | undefined): Block[] => (!c ? [] : Array.isArray(c) ? c : [c])
 
 function Text({ n }: { n: Block }) {
-  const { t } = useI18n()
   const Tag = (n.tag ?? 'p') as 'p' | 'h2' | 'h3'
-  return <Tag className={`t${n.s}${n.li ? ' li' : ''}${n.ta ? ' tc' : ''}`} dangerouslySetInnerHTML={{ __html: t(n.html ?? '') }} />
+  return (
+    <Tag className={`t${n.s}${n.li ? ' li' : ''}${n.ta ? ' tc' : ''}`}>
+      <Bi en={n.html ?? ''} html />
+    </Tag>
+  )
 }
 
 export default function BlockRenderer({ n, parentRow }: { n: Block; parentRow?: Block }) {
-  const { t } = useI18n()
   const style: CSSProperties = {}
   const cls: string[] = []
   if (n.mt) style.marginTop = n.mt
@@ -123,8 +125,9 @@ export default function BlockRenderer({ n, parentRow }: { n: Block; parentRow?: 
           href={n.href}
           target="_blank"
           rel="noopener noreferrer"
-          dangerouslySetInnerHTML={{ __html: t(n.html ?? '') }}
-        />
+        >
+          <Bi en={n.html ?? ''} html />
+        </a>
       )
     case 'img':
       return (
